@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corner Speed Builder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<h1>✈️ Corner Speed Builder</h1>
+
+<div class="card">
+
+<h2>Aircraft</h2>
+
+<label>Aircraft</label>
+<input id="aircraft" type="text">
+
+<label>Version</label>
+<input id="version" type="text">
+
+<label>Country</label>
+<input id="country" type="text">
+
+<h2>Weight</h2>
+
+<label>Empty Weight (kg)</label>
+<input id="emptyWeight" type="number">
+
+<label>Internal Fuel (kg)</label>
+<input id="fuel" type="number">
+
+<label>External Load (kg)</label>
+<input id="externalLoad" type="number">
+
+<label>Maximum Take-off Weight (kg)</label>
+<input id="maxWeight" type="number">
+
+<h2>Performance</h2>
+
+<label>MIL Thrust (kN)</label>
+<input id="milPower" type="number">
+
+<label>Afterburner Thrust (kN)</label>
+<input id="abPower" type="number">
+
+<label>Wing Area (m²)</label>
+<input id="wingArea" type="number">
+
+<label>Wing Type</label>
+<select id="wingType">
+  <option>Straight</option>
+  <option>Swept</option>
+  <option>Delta</option>
+  <option>Double Delta</option>
+  <option>Variable</option>
+</select>
+
+<h2>Calculated Values</h2>
+
+<label>Calculated Weight (kg)</label>
+<input id="calcWeight" readonly>
+
+<label>Wing Loading (kg/m²)</label>
+<input id="wingLoading" readonly>
+
+<br><br>
+
+<button id="calculateBtn">Calculate</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
