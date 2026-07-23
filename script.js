@@ -1,46 +1,24 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  margin: 0;
-  padding: 30px;
-}
+document.getElementById("calculateBtn").addEventListener("click", calculateAircraft);
 
-.card {
-  max-width: 700px;
-  margin: auto;
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.15);
-}
+function calculateAircraft() {
 
-h1 {
-  text-align: center;
-}
+  const emptyWeight = Number(document.getElementById("emptyWeight").value) || 0;
+  const fuel = Number(document.getElementById("fuel").value) || 0;
+  const wingArea = Number(document.getElementById("wingArea").value) || 0;
 
-h2 {
-  margin-top: 30px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
-}
+  if (wingArea <= 0) {
+    alert("Ange vingyta.");
+    return;
+  }
 
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
-}
+  // Beräkningsvikt = Tomvikt + Pilot + 50 % internbränsle
+  const calcWeight = emptyWeight + 100 + (fuel * 0.5);
 
-input,
-select {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
+  // Wing Loading
+  const wingLoading = calcWeight / wingArea;
 
-button {
-  margin-top: 25px;
-  padding: 12px;
-  width: 100%;
-  font-size: 16px;
-  cursor: pointer;
+  // Visa resultat
+  document.getElementById("calcWeight").value = Math.round(calcWeight);
+  document.getElementById("wingLoading").value = Math.round(wingLoading);
+
 }
