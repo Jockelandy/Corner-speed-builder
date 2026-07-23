@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
 <label>Aircraft</label>
 <input id="aircraft" type="text">
 
-<label>Version</label>
+<label>Variant</label>
 <input id="version" type="text">
 
 <label>Country</label>
@@ -26,49 +27,97 @@
 
 <h2>Weight</h2>
 
-<label>Empty Weight (kg)</label>
-<input id="emptyWeight" type="number">
+<label>Empty Weight</label>
+<div class="input-row">
+    <input id="emptyWeight" type="number">
+    <select id="emptyWeightUnit">
+        <option value="kg">kg</option>
+        <option value="lb">lb</option>
+    </select>
+</div>
 
-<label>Internal Fuel (kg)</label>
-<input id="fuel" type="number">
+<label>Internal Fuel</label>
+<div class="input-row">
+    <input id="fuel" type="number">
+    <select id="fuelUnit">
+        <option value="kg">kg</option>
+        <option value="liter">Liter</option>
+        <option value="usgal">US Gallon</option>
+        <option value="impgal">Imp Gallon</option>
+    </select>
+</div>
 
-<label>External Load (kg)</label>
-<input id="externalLoad" type="number">
+<label>External Load</label>
+<div class="input-row">
+    <input id="externalLoad" type="number">
+    <select id="externalLoadUnit">
+        <option value="kg">kg</option>
+        <option value="lb">lb</option>
+    </select>
+</div>
 
-<label>Maximum Take-off Weight (kg)</label>
-<input id="maxWeight" type="number">
+<label>Maximum Take-Off Weight</label>
+<div class="input-row">
+    <input id="maxWeight" type="number">
+    <select id="maxWeightUnit">
+        <option value="kg">kg</option>
+        <option value="lb">lb</option>
+    </select>
+</div>
 
 <h2>Performance</h2>
 
-<label>MIL Thrust (kN)</label>
-<input id="milPower" type="number">
+<label>Military Thrust</label>
+<div class="input-row">
+    <input id="milPower" type="number">
+    <select id="milUnit">
+        <option value="kN">kN</option>
+        <option value="lbf">lbf</option>
+    </select>
+</div>
 
-<label>Afterburner Thrust (kN)</label>
-<input id="abPower" type="number">
+<label>Afterburner Thrust</label>
+<div class="input-row">
+    <input id="abPower" type="number">
+    <select id="abUnit">
+        <option value="kN">kN</option>
+        <option value="lbf">lbf</option>
+    </select>
+</div>
 
-<label>Wing Area (m²)</label>
-<input id="wingArea" type="number">
+<label>Wing Area</label>
+<div class="input-row">
+    <input id="wingArea" type="number">
+    <select id="wingAreaUnit">
+        <option value="m2">m²</option>
+        <option value="ft2">ft²</option>
+    </select>
+</div>
 
 <label>Wing Type</label>
 <select id="wingType">
-  <option>Straight</option>
-  <option>Swept</option>
-  <option>Delta</option>
-  <option>Double Delta</option>
-  <option>Variable</option>
+    <option>Straight</option>
+    <option>Swept</option>
+    <option>Delta</option>
+    <option>Double Delta</option>
+    <option>Variable Sweep</option>
 </select>
 
 <h2>Calculated Values</h2>
 
-<label>Calculated Weight (kg)</label>
+<label>Calculated Weight</label>
 <input id="calcWeight" readonly>
 
-<label>Wing Loading (kg/m²)</label>
+<label>Wing Loading</label>
 <input id="wingLoading" readonly>
+
+<label>Thrust-to-Weight Ratio</label>
+<input id="twr" readonly>
 
 <br><br>
 
 <button id="calculateBtn">Calculate</button>
+<button id="resetBtn">Reset</button>
 
 </div>
 
