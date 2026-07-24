@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corner Speed Builder v0.5</title>
+    <title>Corner Speed Builder v1.0</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,7 +11,11 @@
 
 <div class="container">
 
-<h1>✈ Corner Speed Builder v0.5</h1>
+<h1>✈️ Corner Speed Builder</h1>
+
+<!-- ========================= -->
+<!-- AIRCRAFT -->
+<!-- ========================= -->
 
 <h2>Aircraft</h2>
 
@@ -24,7 +28,9 @@
 <label>Country</label>
 <input type="text" id="country">
 
-<hr>
+<!-- ========================= -->
+<!-- WEIGHT -->
+<!-- ========================= -->
 
 <h2>Weight</h2>
 
@@ -34,16 +40,15 @@
 <label>Internal Fuel (kg)</label>
 <input type="number" id="internalFuel">
 
-<label>Current External Load (kg)</label>
-<input type="number" id="externalLoad">
-
 <label>Maximum External Load (kg)</label>
 <input type="number" id="maxExternalLoad">
 
 <label>MTOW (kg)</label>
 <input type="number" id="mtow">
 
-<hr>
+<!-- ========================= -->
+<!-- PERFORMANCE -->
+<!-- ========================= -->
 
 <h2>Performance</h2>
 
@@ -63,97 +68,84 @@
 <option>Swept Wing</option>
 <option>Delta Wing</option>
 <option>Double Delta</option>
-<option>Swing Wing</option>
+<option>Variable Sweep</option>
 </select>
 
-<hr>
+<!-- ========================= -->
+<!-- LOAD CLASSES -->
+<!-- ========================= -->
 
-<h2>Calculated Performance</h2>
+<h2>Load Classes</h2>
 
 <table>
 
 <tr>
-<th>Class</th>
-<th>Weight</th>
-<th>Wing Load</th>
-<th>Mil TWR</th>
-<th>AB TWR</th>
+<th></th>
+<th>Light</th>
+<th>Medium</th>
+<th>Heavy</th>
 </tr>
 
 <tr>
-<td>Light</td>
+<td>Load Points</td>
+<td id="lightLP">-</td>
+<td id="mediumLP">-</td>
+<td id="heavyLP">-</td>
+</tr>
+
+<tr>
+<td>Weight</td>
 <td id="lightWeight">-</td>
-<td id="lightWingLoading">-</td>
-<td id="lightMilTwr">-</td>
-<td id="lightAbTwr">-</td>
-</tr>
-
-<tr>
-<td>Medium</td>
 <td id="mediumWeight">-</td>
-<td id="mediumWingLoading">-</td>
-<td id="mediumMilTwr">-</td>
-<td id="mediumAbTwr">-</td>
+<td id="heavyWeight">-</td>
 </tr>
 
 <tr>
-<td>Heavy</td>
-<td id="heavyWeight">-</td>
+<td>Wing Loading</td>
+<td id="lightWingLoading">-</td>
+<td id="mediumWingLoading">-</td>
 <td id="heavyWingLoading">-</td>
+</tr>
+
+<tr>
+<td>Mil TWR</td>
+<td id="lightMilTwr">-</td>
+<td id="mediumMilTwr">-</td>
 <td id="heavyMilTwr">-</td>
+</tr>
+
+<tr>
+<td>AB TWR</td>
+<td id="lightAbTwr">-</td>
+<td id="mediumAbTwr">-</td>
 <td id="heavyAbTwr">-</td>
 </tr>
 
-</table>
-
-<hr>
-
-<h2>Builder Values</h2>
-
-<table>
-
 <tr>
-<td><strong>Current Weight</strong></td>
-<td id="currentWeight">-</td>
+<td>EBK Index</td>
+<td id="lightEBK">-</td>
+<td id="mediumEBK">-</td>
+<td id="heavyEBK">-</td>
 </tr>
 
 <tr>
-<td><strong>Current Wing Loading</strong></td>
-<td id="currentWingLoading">-</td>
-</tr>
-
-<tr>
-<td><strong>Current Mil TWR</strong></td>
-<td id="currentMilTwr">-</td>
-</tr>
-
-<tr>
-<td><strong>Current AB TWR</strong></td>
-<td id="currentAbTwr">-</td>
-</tr>
-
-<tr>
-<td><strong>External Load Points</strong></td>
-<td id="loadPoints">-</td>
-</tr>
-
-<tr>
-<td><strong>EBK Index</strong></td>
-<td id="ebkIndex">-</td>
-</tr>
-
-<tr>
-<td><strong>Fuel Points</strong></td>
-<td id="fuelPoints">-</td>
+<td>Fuel Points</td>
+<td id="lightFuel">-</td>
+<td id="mediumFuel">-</td>
+<td id="heavyFuel">-</td>
 </tr>
 
 </table>
 
 <br>
 
-<button onclick="calculate()">Calculate</button>
+<button onclick="calculate()">
+Calculate
+</button>
 
-<button onclick="resetForm()">Reset</button>
+<button onclick="resetForm()">
+Reset
+</button>
 
 </div>
 
