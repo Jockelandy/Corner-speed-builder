@@ -2,13 +2,15 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Corner Speed Builder</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corner Speed Builder</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+<div class="container">
 
 <h1>✈️ Corner Speed Builder</h1>
 
@@ -24,6 +26,8 @@
 
 <label>Country</label>
 <input id="country" type="text">
+
+<hr>
 
 <h2>Weight</h2>
 
@@ -47,16 +51,7 @@
     </select>
 </div>
 
-<label>External Load</label>
-<div class="input-row">
-    <input id="externalLoad" type="number">
-    <select id="externalLoadUnit">
-        <option value="kg">kg</option>
-        <option value="lb">lb</option>
-    </select>
-</div>
-
-<label>Maximum Take-Off Weight</label>
+<label>Maximum Take-Off Weight (MTOW)</label>
 <div class="input-row">
     <input id="maxWeight" type="number">
     <select id="maxWeightUnit">
@@ -64,6 +59,8 @@
         <option value="lb">lb</option>
     </select>
 </div>
+
+<hr>
 
 <h2>Performance</h2>
 
@@ -103,25 +100,63 @@
     <option>Variable Sweep</option>
 </select>
 
+<hr>
+
 <h2>Calculated Values</h2>
 
-<label>Calculated Weight</label>
-<input id="calcWeight" readonly>
+<table class="results-table">
 
-<label>Wing Loading</label>
-<input id="wingLoading" readonly>
+<thead>
+<tr>
+<th>Load</th>
+<th>Weight</th>
+<th>Wing Load</th>
+<th>Mil TWR</th>
+<th>AB TWR</th>
+</tr>
+</thead>
 
-<label>Thrust-to-Weight Ratio</label>
-<input id="twr" readonly>
+<tbody>
 
-<br><br>
+<tr>
+<td>Light</td>
+<td id="lightWeight">-</td>
+<td id="lightWingLoading">-</td>
+<td id="lightMilTwr">-</td>
+<td id="lightAbTwr">-</td>
+</tr>
+
+<tr>
+<td>Medium</td>
+<td id="mediumWeight">-</td>
+<td id="mediumWingLoading">-</td>
+<td id="mediumMilTwr">-</td>
+<td id="mediumAbTwr">-</td>
+</tr>
+
+<tr>
+<td>Heavy (MTOW)</td>
+<td id="heavyWeight">-</td>
+<td id="heavyWingLoading">-</td>
+<td id="heavyMilTwr">-</td>
+<td id="heavyAbTwr">-</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<br>
 
 <button id="calculateBtn">Calculate</button>
 <button id="resetBtn">Reset</button>
 
 </div>
 
+</div>
+
 <script src="script.js"></script>
 
 </body>
+
 </html>
