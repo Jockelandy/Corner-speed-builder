@@ -1,46 +1,125 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  margin: 0;
-  padding: 30px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.card {
-  max-width: 700px;
-  margin: auto;
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f4f7;
+    color: #222;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 h1 {
-  text-align: center;
+    text-align: center;
+    margin-bottom: 25px;
 }
 
 h2 {
-  margin-top: 30px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 12px;
+    color: #0b4f8a;
 }
 
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
+.grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 12px;
+    align-items: center;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
 }
 
 input,
 select {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
 }
 
 button {
-  margin-top: 25px;
-  padding: 12px;
-  width: 100%;
-  font-size: 16px;
-  cursor: pointer;
+    flex: 1;
+    padding: 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #0b4f8a;
+    color: white;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #1565a8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+}
+
+th {
+    background: #0b4f8a;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background: #f7f9fb;
+}
+
+tbody tr:hover {
+    background: #eef5fb;
+}
+
+@media (max-width:700px){
+
+.grid{
+    grid-template-columns:1fr;
+}
+
+.input-group{
+    flex-direction:column;
+}
+
+.buttons{
+    flex-direction:column;
+}
+
+.container{
+    padding:15px;
+}
+
+table{
+    font-size:14px;
+}
+
 }
