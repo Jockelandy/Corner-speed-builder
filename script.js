@@ -1,6 +1,52 @@
-// function calculate() {
+// Corner Speed Builder v0.4
 
-    // INPUT
+document.getElementById("calculateBtn").addEventListener("click", calculate);
+document.getElementById("resetBtn").addEventListener("click", resetForm);
+
+// ----------------------
+// Unit conversions
+// ----------------------
+
+function toKg(value, unit) {
+    return unit === "lb" ? value * 0.453592 : value;
+}
+
+function fuelToKg(value, unit) {
+
+    switch (unit) {
+
+        case "kg":
+            return value;
+
+        case "liter":
+            return value * 0.80;
+
+        case "usgal":
+            return value * 3.78541 * 0.80;
+
+        case "impgal":
+            return value * 4.54609 * 0.80;
+
+        default:
+            return value;
+
+    }
+
+}
+
+function thrustToKN(value, unit) {
+    return unit === "lbf" ? value * 0.00444822 : value;
+}
+
+function areaToM2(value, unit) {
+    return unit === "ft2" ? value * 0.092903 : value;
+}
+
+// ----------------------
+// Calculate
+// ----------------------
+
+function calculate() {
 
     let emptyWeight = toKg(
         Number(document.getElementById("emptyWeight").value),
@@ -32,38 +78,106 @@
         document.getElementById("wingAreaUnit").value
     );
 
-    // BASVIKT
-    const baseWeight = emptyWeight + 100 + (fuel * 0.5);
+    // Basvikt
 
-    // LASTKLASSER
-    const lightWeight = baseWeight + (mtow - baseWeight) * 0.33;
-    const mediumWeight = baseWeight + (mtow - baseWeight) * 0.66;
-    const heavyWeight = mtow;
+    const baseWeight =
+        emptyWeight +
+        100 +
+        fuel * 0.5;
 
-    function calc(weight) {
-        return {
-            weight: weight,
-            wingLoading: weight / wingArea,
-            milTwr: milPower / (weight * 9.81 / 1000),
-            abTwr: abPower / (weight * 9.81 / 1000)
-        };
-    }
+    // Lastklasser
 
-    const light = calc(lightWeight);
-    const medium = calc(mediumWeight);
-    const heavy = calc(heavyWeight);
+    const lightWeight =
+        baseWeight + (mtow - baseWeight) * 0.33;
 
-    // OUTPUT
-    document.getElementById("lightWeight").textContent = light.weight.toFixed(0);
-    document.getElementById("lightWingLoading").textContent = light.wingLoading.toFixed(0);
-    document.getElementById("lightTwr").textContent = light.abTwr.toFixed(2);
+    const mediumWeight =
+        baseWeight + (mtow - baseWeight) * 0.66;
 
-    document.getElementById("mediumWeight").textContent = medium.weight.toFixed(0);
-    document.getElementById("mediumWingLoading").textContent = medium.wingLoading.toFixed(0);
-    document.getElementById("mediumTwr").textContent = medium.abTwr.toFixed(2);
+    const heavyWeight =
+        mtow;
 
-    document.getElementById("heavyWeight").textContent = heavy.weight.toFixed(0);
-    document.getElementById("heavyWingLoading").textContent = heavy.wingLoading.toFixed(0);
-    document.getElementById("heavyTwr").textContent = heavy.abTwr.toFixed(2);
+    updateRow(
+        "light",
+        lightWeight,
+        wingArea,
+        milPower,
+        abPower
+    );
+
+    updateRow(
+        "medium",
+        mediumWeight,
+        wingArea,
+        milPower,
+        abPower
+    );
+
+    updateRow(
+        "heavy",
+        heavyWeight,
+        wingArea,
+        milPower,
+        abPower
+    );
+
+}
+
+// ----------------------
+// Update table
+// ----------------------
+
+function updateRow(prefix, weight, wingArea, milPower, abPower) {
+
+    const wingLoading =
+        weight / wingArea;
+
+    const milTwr =
+        milPower /
+        (weight * 9.81 / 1000);
+
+    const abTwr =
+        abPower /
+        (weight * 9.81 / 1000);
+
+    document.getElementById(prefix + "Weight").textContent =
+        weight.toFixed(0);
+
+    document.getElementById(prefix + "WingLoading").textContent =
+        wingLoading.toFixed(0);
+
+    document.getElementById(prefix + "MilTwr").textContent =
+        milTwr.toFixed(2);
+
+    document.getElementById(prefix + "AbTwr").textContent =
+        abTwr.toFixed(2);
+
+}
+
+// ----------------------
+// Reset
+// ----------------------
+
+function resetForm() {
+
+    document.querySelectorAll("input").forEach(input => {
+        input.value = "";
+    });
+
+    document.querySelectorAll("select").forEach(select => {
+        select.selectedIndex = 0;
+    });
+
+    [
+        "light",
+        "medium",
+        "heavy"
+    ].forEach(prefix => {
+
+        document.getElementById(prefix + "Weight").textContent = "-";
+        document.getElementById(prefix + "WingLoading").textContent = "-";
+        document.getElementById(prefix + "MilTwr").textContent = "-";
+        document.getElementById(prefix + "AbTwr").textContent = "-";
+
+    });
 
 }
