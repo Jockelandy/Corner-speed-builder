@@ -1,83 +1,117 @@
-// Corner Speed Builder v0.2
+// Corner Speed Builder v0.3
 
 document.getElementById("calculateBtn").addEventListener("click", calculate);
 document.getElementById("resetBtn").addEventListener("click", resetForm);
 
+function toKg(value, unit) {
+    switch (unit) {
+        case "lb":
+            return value * 0.453592;
+        default:
+            return value;
+    }
+}
+
+function fuelToKg(value, unit) {
+
+    switch (unit) {
+
+        case "kg":
+            return value;
+
+        case "liter":
+            return value * 0.80;
+
+        case "usgal":
+            return value * 3.78541 * 0.80;
+
+        case "impgal":
+            return value * 4.54609 * 0.80;
+
+        default:
+            return value;
+
+    }
+
+}
+
+function thrustToKN(value, unit) {
+
+    if (unit === "lbf")
+        return value * 0.00444822;
+
+    return value;
+
+}
+
+function areaToM2(value, unit) {
+
+    if (unit === "ft2")
+        return value * 0.092903;
+
+    return value;
+
+}
+
 function calculate() {
 
-    // ---------- INPUT ----------
+    // INPUT
 
     let emptyWeight = Number(document.getElementById("emptyWeight").value);
     let fuel = Number(document.getElementById("fuel").value);
     let externalLoad = Number(document.getElementById("externalLoad").value);
 
-    let milPower = Number(document.getElementById("milPower").value);
     let abPower = Number(document.getElementById("abPower").value);
+
     let wingArea = Number(document.getElementById("wingArea").value);
 
-    // ---------- UNITS ----------
+    // CONVERT
 
-    const emptyWeightUnit = document.getElementById("emptyWeightUnit").value;
-    const fuelUnit = document.getElementById("fuelUnit").value;
-    const externalLoadUnit = document.getElementById("externalLoadUnit").value;
+    emptyWeight = toKg(
+        emptyWeight,
+        document.getElementById("emptyWeightUnit").value
+    );
 
-    const milUnit = document.getElementById("milUnit").value;
-    const abUnit = document.getElementById("abUnit").value;
-    const wingAreaUnit = document.getElementById("wingAreaUnit").value;
+    externalLoad = toKg(
+        externalLoad,
+        document.getElementById("externalLoadUnit").value
+    );
 
-    // ---------- WEIGHT ----------
+    fuel = fuelToKg(
+        fuel,
+        document.getElementById("fuelUnit").value
+    );
 
-    if (emptyWeightUnit === "lb")
-        emptyWeight *= 0.453592;
+    abPower = thrustToKN(
+        abPower,
+        document.getElementById("abUnit").value
+    );
 
-    if (externalLoadUnit === "lb")
-        externalLoad *= 0.453592;
+    wingArea = areaToM2(
+        wingArea,
+        document.getElementById("wingAreaUnit").value
+    );
 
-    // ---------- FUEL ----------
-
-    switch (fuelUnit) {
-
-        case "liter":
-            fuel *= 0.8;
-            break;
-
-        case "usgal":
-            fuel *= 3.785 * 0.8;
-            break;
-
-        case "impgal":
-            fuel *= 4.546 * 0.8;
-            break;
-
-    }
-
-    // ---------- THRUST ----------
-
-    if (milUnit === "lbf")
-        milPower *= 0.00444822;
-
-    if (abUnit === "lbf")
-        abPower *= 0.00444822;
-
-    // ---------- WING AREA ----------
-
-    if (wingAreaUnit === "ft2")
-        wingArea *= 0.092903;
-
-    // ---------- CALCULATIONS ----------
+    // CALCULATED WEIGHT
 
     const calculatedWeight =
         emptyWeight +
         100 +
-        (fuel * 0.5);
+        (fuel * 0.5) +
+        externalLoad;
+
+    // WING LOADING
 
     const wingLoading =
         calculatedWeight / wingArea;
 
-    const twr =
-        abPower / (calculatedWeight * 9.81 / 1000);
+    // TWR
 
-    // ---------- OUTPUT ----------
+    const twr =
+        abPower /
+        (calculatedWeight * 9.81 / 1000);
+
+    // OUTPUT
 
     document.getElementById("calcWeight").value =
         calculatedWeight.toFixed(0);
@@ -96,6 +130,12 @@ function resetForm() {
 
         if (!input.readOnly)
             input.value = "";
+
+    });
+
+    document.querySelectorAll("select").forEach(select => {
+
+        select.selectedIndex = 0;
 
     });
 
