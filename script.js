@@ -1,183 +1,153 @@
-// Corner Speed Builder v0.4
-
-document.getElementById("calculateBtn").addEventListener("click", calculate);
-document.getElementById("resetBtn").addEventListener("click", resetForm);
-
-// ----------------------
-// Unit conversions
-// ----------------------
+// ---------- Unit conversions ----------
 
 function toKg(value, unit) {
-    return unit === "lb" ? value * 0.453592 : value;
+
+    if (unit === "kg") return value;
+    if (unit === "lb") return value * 0.453592;
+
+    return value;
 }
 
 function fuelToKg(value, unit) {
 
-    switch (unit) {
+    if (unit === "kg") return value;
+    if (unit === "liter") return value * 0.8;
+    if (unit === "usgal") return value * 3.785 * 0.8;
+    if (unit === "impgal") return value * 4.546 * 0.8;
 
-        case "kg":
-            return value;
-
-        case "liter":
-            return value * 0.80;
-
-        case "usgal":
-            return value * 3.78541 * 0.80;
-
-        case "impgal":
-            return value * 4.54609 * 0.80;
-
-        default:
-            return value;
-
-    }
-
+    return value;
 }
 
 function thrustToKN(value, unit) {
-    return unit === "lbf" ? value * 0.00444822 : value;
+
+    if (unit === "kN") return value;
+    if (unit === "lbf") return value * 0.00444822;
+    if (unit === "kgf") return value * 0.00980665;
+
+    return value;
 }
 
 function areaToM2(value, unit) {
-    return unit === "ft2" ? value * 0.092903 : value;
+
+    if (unit === "m2") return value;
+    if (unit === "ft2") return value * 0.092903;
+
+    return value;
 }
 
-// ----------------------
-// Calculate
-// ----------------------
+// ---------- Update table ----------
+
+function updateRow(prefix, weight, wingArea, mil, ab) {
+
+    document.getElementById(prefix + "Weight").textContent =
+        Math.round(weight) + " kg";
+
+    document.getElementById(prefix + "WingLoading").textContent =
+        Math.round(weight / wingArea);
+
+    document.getElementById(prefix + "MilTwr").textContent =
+        (mil / (weight * 9.81 / 1000)).toFixed(2);
+
+    document.getElementById(prefix + "AbTwr").textContent =
+        (ab / (weight * 9.81 / 1000)).toFixed(2);
+
+}
+
+// ---------- Calculate ----------
 
 function calculate() {
 
-    let emptyWeight = toKg(
-        Number(document.getElementById("emptyWeight").value),
-        document.getElementById("emptyWeightUnit").value
-    );
+    const emptyWeight =
+        toKg(
+            Number(document.getElementById("emptyWeight").value),
+            document.getElementById("emptyWeightUnit").value
+        );
 
-    let fuel = fuelToKg(
-        Number(document.getElementById("fuel").value),
-        document.getElementById("fuelUnit").value
-    );
+    const fuel =
+        fuelToKg(
+            Number(document.getElementById("fuel").value),
+            document.getElementById("fuelUnit").value
+        );
 
-    let mtow = toKg(
-        Number(document.getElementById("maxWeight").value),
-        document.getElementById("maxWeightUnit").value
-    );
+    const mtow =
+        toKg(
+            Number(document.getElementById("maxWeight").value),
+            document.getElementById("maxWeightUnit").value
+        );
 
-    let milPower = thrustToKN(
-        Number(document.getElementById("milPower").value),
-        document.getElementById("milUnit").value
-    );
+    const mil =
+        thrustToKN(
+            Number(document.getElementById("milPower").value),
+            document.getElementById("milUnit").value
+        );
 
-    let abPower = thrustToKN(
-        Number(document.getElementById("abPower").value),
-        document.getElementById("abUnit").value
-    );
+    const ab =
+        thrustToKN(
+            Number(document.getElementById("abPower").value),
+            document.getElementById("abUnit").value
+        );
 
-    let wingArea = areaToM2(
-        Number(document.getElementById("wingArea").value),
-        document.getElementById("wingAreaUnit").value
-    );
+    const wingArea =
+        areaToM2(
+            Number(document.getElementById("wingArea").value),
+            document.getElementById("wingAreaUnit").value
+        );
 
-    // Basvikt
+    // ---------- Base Weight ----------
 
     const baseWeight =
         emptyWeight +
         100 +
         fuel * 0.5;
 
-    // Lastklasser
+    // ---------- Payload ----------
+
+    const payload =
+        mtow - baseWeight;
+
+    // ---------- Load Classes ----------
 
     const lightWeight =
-        baseWeight + (mtow - baseWeight) * 0.33;
+        baseWeight;
 
     const mediumWeight =
-        baseWeight + (mtow - baseWeight) * 0.66;
+        baseWeight +
+        payload * 0.50;
 
     const heavyWeight =
-        mtow;
+        baseWeight +
+        payload * 0.75;
 
-    updateRow(
-        "light",
-        lightWeight,
-        wingArea,
-        milPower,
-        abPower
-    );
+    // ---------- Update ----------
 
-    updateRow(
-        "medium",
-        mediumWeight,
-        wingArea,
-        milPower,
-        abPower
-    );
+    updateRow("light", lightWeight, wingArea, mil, ab);
 
-    updateRow(
-        "heavy",
-        heavyWeight,
-        wingArea,
-        milPower,
-        abPower
-    );
+    updateRow("medium", mediumWeight, wingArea, mil, ab);
+
+    updateRow("heavy", heavyWeight, wingArea, mil, ab);
 
 }
 
-// ----------------------
-// Update table
-// ----------------------
-
-function updateRow(prefix, weight, wingArea, milPower, abPower) {
-
-    const wingLoading =
-        weight / wingArea;
-
-    const milTwr =
-        milPower /
-        (weight * 9.81 / 1000);
-
-    const abTwr =
-        abPower /
-        (weight * 9.81 / 1000);
-
-    document.getElementById(prefix + "Weight").textContent =
-        weight.toFixed(0);
-
-    document.getElementById(prefix + "WingLoading").textContent =
-        wingLoading.toFixed(0);
-
-    document.getElementById(prefix + "MilTwr").textContent =
-        milTwr.toFixed(2);
-
-    document.getElementById(prefix + "AbTwr").textContent =
-        abTwr.toFixed(2);
-
-}
-
-// ----------------------
-// Reset
-// ----------------------
+// ---------- Reset ----------
 
 function resetForm() {
 
-    document.querySelectorAll("input").forEach(input => {
-        input.value = "";
-    });
+    document.querySelectorAll("input").forEach(input => input.value = "");
 
-    document.querySelectorAll("select").forEach(select => {
-        select.selectedIndex = 0;
-    });
+    document.querySelectorAll("td").forEach(td => {
 
-    [
-        "light",
-        "medium",
-        "heavy"
-    ].forEach(prefix => {
-
-        document.getElementById(prefix + "Weight").textContent = "-";
-        document.getElementById(prefix + "WingLoading").textContent = "-";
-        document.getElementById(prefix + "MilTwr").textContent = "-";
-        document.getElementById(prefix + "AbTwr").textContent = "-";
+        if (td.id) td.textContent = "-";
 
     });
 
 }
+
+// ---------- Buttons ----------
+
+document
+    .getElementById("calculateBtn")
+    .addEventListener("click", calculate);
+
+document
+    .getElementById("resetBtn")
+    .addEventListener("click", resetForm);
