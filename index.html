@@ -1,162 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corner Speed Builder</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="container">
 
-<h1>✈️ Corner Speed Builder</h1>
+    <h1>Corner Speed Builder</h1>
 
-<div class="card">
+    <h2>Aircraft</h2>
 
-<h2>Aircraft</h2>
+    <div class="grid">
 
-<label>Aircraft</label>
-<input id="aircraft" type="text">
+        <label>Aircraft</label>
+        <input type="text" id="aircraft">
 
-<label>Variant</label>
-<input id="version" type="text">
+        <label>Version</label>
+        <input type="text" id="version">
 
-<label>Country</label>
-<input id="country" type="text">
+        <label>Country</label>
+        <input type="text" id="country">
 
-<hr>
+    </div>
 
-<h2>Weight</h2>
+    <h2>Weight</h2>
 
-<label>Empty Weight</label>
-<div class="input-row">
-    <input id="emptyWeight" type="number">
-    <select id="emptyWeightUnit">
-        <option value="kg">kg</option>
-        <option value="lb">lb</option>
-    </select>
-</div>
+    <div class="grid">
 
-<label>Internal Fuel</label>
-<div class="input-row">
-    <input id="fuel" type="number">
-    <select id="fuelUnit">
-        <option value="kg">kg</option>
-        <option value="liter">Liter</option>
-        <option value="usgal">US Gallon</option>
-        <option value="impgal">Imp Gallon</option>
-    </select>
-</div>
+        <label>Empty Weight</label>
+        <div class="input-group">
+            <input type="number" id="emptyWeight">
+            <select id="emptyWeightUnit">
+                <option value="kg">kg</option>
+                <option value="lb">lb</option>
+            </select>
+        </div>
 
-<label>Maximum Take-Off Weight (MTOW)</label>
-<div class="input-row">
-    <input id="maxWeight" type="number">
-    <select id="maxWeightUnit">
-        <option value="kg">kg</option>
-        <option value="lb">lb</option>
-    </select>
-</div>
+        <label>Internal Fuel</label>
+        <div class="input-group">
+            <input type="number" id="fuel">
+            <select id="fuelUnit">
+                <option value="kg">kg</option>
+                <option value="liter">Liter</option>
+                <option value="usgal">US gal</option>
+                <option value="impgal">Imp gal</option>
+            </select>
+        </div>
 
-<hr>
+        <label>MTOW</label>
+        <div class="input-group">
+            <input type="number" id="maxWeight">
+            <select id="maxWeightUnit">
+                <option value="kg">kg</option>
+                <option value="lb">lb</option>
+            </select>
+        </div>
 
-<h2>Performance</h2>
+    </div>
 
-<label>Military Thrust</label>
-<div class="input-row">
-    <input id="milPower" type="number">
-    <select id="milUnit">
-        <option value="kN">kN</option>
-        <option value="lbf">lbf</option>
-    </select>
-</div>
+    <h2>Performance</h2>
 
-<label>Afterburner Thrust</label>
-<div class="input-row">
-    <input id="abPower" type="number">
-    <select id="abUnit">
-        <option value="kN">kN</option>
-        <option value="lbf">lbf</option>
-    </select>
-</div>
+    <div class="grid">
 
-<label>Wing Area</label>
-<div class="input-row">
-    <input id="wingArea" type="number">
-    <select id="wingAreaUnit">
-        <option value="m2">m²</option>
-        <option value="ft2">ft²</option>
-    </select>
-</div>
+        <label>Military Thrust</label>
+        <div class="input-group">
+            <input type="number" id="milPower">
+            <select id="milUnit">
+                <option value="kN">kN</option>
+                <option value="lbf">lbf</option>
+                <option value="kgf">kgf</option>
+            </select>
+        </div>
 
-<label>Wing Type</label>
-<select id="wingType">
-    <option>Straight</option>
-    <option>Swept</option>
-    <option>Delta</option>
-    <option>Double Delta</option>
-    <option>Variable Sweep</option>
-</select>
+        <label>Afterburner Thrust</label>
+        <div class="input-group">
+            <input type="number" id="abPower">
+            <select id="abUnit">
+                <option value="kN">kN</option>
+                <option value="lbf">lbf</option>
+                <option value="kgf">kgf</option>
+            </select>
+        </div>
 
-<hr>
+        <label>Wing Area</label>
+        <div class="input-group">
+            <input type="number" id="wingArea">
+            <select id="wingAreaUnit">
+                <option value="m2">m²</option>
+                <option value="ft2">ft²</option>
+            </select>
+        </div>
 
-<h2>Calculated Values</h2>
+        <label>Wing Type</label>
+        <select id="wingType">
+            <option>Straight</option>
+            <option>Swept</option>
+            <option>Delta</option>
+            <option>Double Delta</option>
+            <option>Variable Sweep</option>
+        </select>
 
-<table class="results-table">
+    </div>
 
-<thead>
-<tr>
-<th>Load</th>
-<th>Weight</th>
-<th>Wing Load</th>
-<th>Mil TWR</th>
-<th>AB TWR</th>
-</tr>
-</thead>
+    <div class="buttons">
+        <button id="calculateBtn">Calculate</button>
+        <button id="resetBtn">Reset</button>
+    </div>
 
-<tbody>
+    <h2>Calculated Performance</h2>
 
-<tr>
-<td>Light</td>
-<td id="lightWeight">-</td>
-<td id="lightWingLoading">-</td>
-<td id="lightMilTwr">-</td>
-<td id="lightAbTwr">-</td>
-</tr>
+    <table>
 
-<tr>
-<td>Medium</td>
-<td id="mediumWeight">-</td>
-<td id="mediumWingLoading">-</td>
-<td id="mediumMilTwr">-</td>
-<td id="mediumAbTwr">-</td>
-</tr>
+        <thead>
 
-<tr>
-<td>Heavy (MTOW)</td>
-<td id="heavyWeight">-</td>
-<td id="heavyWingLoading">-</td>
-<td id="heavyMilTwr">-</td>
-<td id="heavyAbTwr">-</td>
-</tr>
+        <tr>
+            <th>Load</th>
+            <th>Weight</th>
+            <th>Wing Load</th>
+            <th>Mil TWR</th>
+            <th>AB TWR</th>
+        </tr>
 
-</tbody>
+        </thead>
 
-</table>
+        <tbody>
 
-<br>
+        <tr>
+            <td>Light</td>
+            <td id="lightWeight">-</td>
+            <td id="lightWingLoading">-</td>
+            <td id="lightMilTwr">-</td>
+            <td id="lightAbTwr">-</td>
+        </tr>
 
-<button id="calculateBtn">Calculate</button>
-<button id="resetBtn">Reset</button>
+        <tr>
+            <td>Medium</td>
+            <td id="mediumWeight">-</td>
+            <td id="mediumWingLoading">-</td>
+            <td id="mediumMilTwr">-</td>
+            <td id="mediumAbTwr">-</td>
+        </tr>
 
-</div>
+        <tr>
+            <td>Heavy</td>
+            <td id="heavyWeight">-</td>
+            <td id="heavyWingLoading">-</td>
+            <td id="heavyMilTwr">-</td>
+            <td id="heavyAbTwr">-</td>
+        </tr>
+
+        </tbody>
+
+    </table>
 
 </div>
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
